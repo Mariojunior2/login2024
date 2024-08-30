@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <script>
+        fetch('http://localhost:3000/auth-check', { credentials: 'include' })
+            .then(response => {
+                if (!response.ok) {
+                    window.location.href = 'login.html'; // Redireciona para login se não autenticado
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao verificar autenticação:', error);
+                window.location.href = 'login.html'; // Redireciona para login em caso de erro
+            });
+    </script>
+
+    <div class="dashboard">
+        <h2>Tarefas</h2>
+        <button onclick="document.getElementById('FormTask').style.display = 'block'">Adicionar Tarefa</button>
+        <table id="taskTable">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Data de Vencimento</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+        <div id="FormTask" style="display:none;">
+            <form id="taskForm">
+                <input type="text" id="titulo" placeholder="Título" required>
+                <textarea id="descricao" placeholder="Descrição"></textarea>
+                <input type="date" id="duedata">
+                <button type="submit">Adicionar</button>
+                <button type="button" onclick="document.getElementById('FormTask').style.display = 'none'">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/java/tarefas.js"></script>
+</body>
+</html>
+
+
